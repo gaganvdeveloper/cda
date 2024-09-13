@@ -2,6 +2,7 @@ package com.softgv.cda.serviceimpl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,7 +23,7 @@ import com.softgv.cda.service.StudentProfileService;
 @Service
 public class StudentProfileServiceImpl implements StudentProfileService {
 
-	private static final String FOLDER_PATH = "C:\\Users\\gagan\\Documents\\My-React\\cda-react-app\\public\\images\\students";
+	private static final String FOLDER_PATH = "C:\\Users\\gagan\\Documents\\My-React\\cda-react-app\\public\\images\\students\\";
 
 	@Autowired
 	StudentProfileDao studentProfileDao;
@@ -46,6 +47,15 @@ public class StudentProfileServiceImpl implements StudentProfileService {
 		studentProfileDao.saveStudentProfile(studentProfile);
 		return ResponseEntity.status(HttpStatus.OK).body(ResponseStructure.builder().status(HttpStatus.OK.value())
 				.message("Student Profile Saved Successfully...").body(studentProfile).build());
+	}
+
+	@Override
+	public ResponseEntity<?> findAllStudentProfiles() {
+
+		List<StudentProfile> studentProfiles = studentProfileDao.findAllStudentProfiles();
+
+		return ResponseEntity.status(HttpStatus.OK).body(ResponseStructure.builder().status(HttpStatus.OK.value())
+				.message("All Student Profiles Found Successfully...").body(studentProfiles).build());
 	}
 
 }

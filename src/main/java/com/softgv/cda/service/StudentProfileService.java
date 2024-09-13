@@ -6,5 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface StudentProfileService {
 
 	ResponseEntity<?> saveStudentProfile(int uid, MultipartFile file);
+
+	ResponseEntity<?> findAllStudentProfiles();
 	
 }

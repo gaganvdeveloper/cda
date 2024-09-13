@@ -4,18 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.softgv.cda.entity.User;
-import com.softgv.cda.responsestructure.ResponseStructure;
 import com.softgv.cda.service.UserService;
 import com.softgv.cda.util.AuthUser;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", originPatterns = "*")
 @RequestMapping(value = "/users")
 public class UserController {
 
@@ -26,15 +27,20 @@ public class UserController {
 	public ResponseEntity<?> findByUsernameAndPassword(@RequestBody AuthUser authUser) {
 		return service.findByUsernameAndPassword(authUser);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<?> saveUser(@RequestBody User user){
+	public ResponseEntity<?> saveUser(@RequestBody User user) {
 		return service.saveUser(user);
 	}
 
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<?> findUserById(@PathVariable int id) {
+		return service.findUserById(id);
+	}
+
 	@GetMapping
-	public ResponseEntity<?> findAllUsers(){
+	public ResponseEntity<?> findAllUsers() {
 		return service.findAllUsers();
 	}
-	
+
 }
