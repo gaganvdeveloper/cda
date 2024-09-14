@@ -13,4 +13,6 @@ public interface DepartmentDao {
 
 	Optional<Department> findDepartmentById(int id);
 
+	void deleteDepartmentById(int id);
+
 }

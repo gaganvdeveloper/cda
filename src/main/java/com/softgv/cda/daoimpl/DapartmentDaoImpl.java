@@ -31,4 +31,9 @@ public class DapartmentDaoImpl implements DepartmentDao {
 		return repository.findById(id);
 	}
 
+	@Override
+	public void deleteDepartmentById(int id) {
+		repository.deleteById(id);
+	}
+
 }

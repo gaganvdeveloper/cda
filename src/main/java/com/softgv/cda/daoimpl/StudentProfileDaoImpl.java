@@ -1,6 +1,7 @@
 package com.softgv.cda.daoimpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,11 @@ public class StudentProfileDaoImpl implements StudentProfileDao {
 	@Override
 	public List<StudentProfile> findAllStudentProfiles() {
 		return studentProfileRepository.findAll();
+	}
+
+	@Override
+	public Optional<StudentProfile> findStudentProfileById(int id) {
+		return studentProfileRepository.findById(id);
 	}
 
 }

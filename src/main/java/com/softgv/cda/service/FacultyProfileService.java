@@ -16,4 +16,6 @@ public interface FacultyProfileService {
 	ResponseEntity<?> updatePhoto(int id, MultipartFile file);
 
 	ResponseEntity<?> updateInfo(int id, String email, String phone, LocalTime officeHours);
+
+	ResponseEntity<?> assignDepartmentToFacultyProfile(int uid, int did);
 }

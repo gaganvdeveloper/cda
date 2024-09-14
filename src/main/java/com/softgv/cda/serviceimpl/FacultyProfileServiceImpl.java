@@ -13,8 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.softgv.cda.dao.DepartmentDao;
 import com.softgv.cda.dao.FacultyProfileDao;
 import com.softgv.cda.dao.UserDao;
+import com.softgv.cda.entity.Department;
 import com.softgv.cda.entity.FacultyProfile;
 import com.softgv.cda.entity.User;
 import com.softgv.cda.exceptionclasses.UserNotFoundException;
@@ -32,6 +34,10 @@ public class FacultyProfileServiceImpl implements FacultyProfileService {
 	@Autowired
 	private FacultyProfileDao facultyProfileDao;
 
+	@Autowired
+	private DepartmentDao departmentDao;
+	
+	
 	@Override
 	public ResponseEntity<?> saveFacultyProfile(int uid, MultipartFile file) {
 		Optional<User> optional = userDao.findUserById(uid);
@@ -106,6 +112,21 @@ public class FacultyProfileServiceImpl implements FacultyProfileService {
 		user = userDao.saveUser(user);
 		return ResponseEntity.status(HttpStatus.OK).body(ResponseStructure.builder().status(HttpStatus.OK.value())
 				.message("Faculty Information Updated Successfully...").body(facultyProfile).build());
+	}
+
+	@Override
+	public ResponseEntity<?> assignDepartmentToFacultyProfile(int uid, int did) {
+		Optional<Department> optional1 = departmentDao.findDepartmentById(did);
+		if (optional1.isEmpty())
+			throw new RuntimeException("Invalid Department Id : " + did);
+		Optional<FacultyProfile> optional2 = facultyProfileDao.findFacultyProfileById(uid);
+		if (optional2.isEmpty())
+			throw new RuntimeException("Invalid Faculty Profile Id : " + uid);
+		Department department = optional1.get();
+		FacultyProfile  facultyProfile = optional2.get();
+		facultyProfile.setDepartment(department);
+		facultyProfile=facultyProfileDao.saveFacultyProfile(facultyProfile);
+		return ResponseEntity.status(HttpStatus.OK).body(ResponseStructure.builder().status(HttpStatus.OK.value()).message("Department Assigned Successfully To Faculty Profile").body(facultyProfile).build());
 	}
 
 }

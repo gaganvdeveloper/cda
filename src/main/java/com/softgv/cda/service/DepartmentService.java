@@ -12,4 +12,6 @@ public interface DepartmentService {
 
 	ResponseEntity<?> findDepartmentById(int id);
 
+	ResponseEntity<?> deleteDepartmentById(int id);
+
 }

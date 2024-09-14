@@ -34,6 +34,11 @@ public class FacultyProfileController {
 		return facultyProfileService.updateInfo(id,email,phone,officeHours);
 	}
 	
+	@PatchMapping(value =  "/{uid}/{did}")
+	public ResponseEntity<?> assignDepartmentToFacultyProfile(@PathVariable(name = "uid") int uid, @PathVariable(name = "did") int did){
+		return facultyProfileService.assignDepartmentToFacultyProfile(uid,did);
+	}
+	
 	@PatchMapping
 	public ResponseEntity<?> updatePhoto(@RequestParam int id ,@RequestParam MultipartFile file){
 		return facultyProfileService.updatePhoto(id,file);
@@ -41,7 +46,7 @@ public class FacultyProfileController {
 	
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> findFacultyProfile(@PathVariable int id) {
+	public ResponseEntity<?> findFacultyProfileById(@PathVariable int id) {
 		return facultyProfileService.findFacultyProfileById(id);
 	}
 
