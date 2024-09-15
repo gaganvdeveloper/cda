@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.softgv.cda.entity.AdministratorProfile;
 import com.softgv.cda.service.AdministratorProfileService;
 
-@CrossOrigin(originPatterns = "*", origins = "*")
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/administratorprofiles")
 public class AdministratorProfileController {

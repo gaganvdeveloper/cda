@@ -15,8 +15,8 @@ import com.softgv.cda.entity.User;
 import com.softgv.cda.service.UserService;
 import com.softgv.cda.util.AuthUser;
 
+@CrossOrigin
 @RestController
-@CrossOrigin(origins = "*", originPatterns = "*")
 @RequestMapping(value = "/users")
 public class UserController {
 

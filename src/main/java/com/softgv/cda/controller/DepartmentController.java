@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.softgv.cda.entity.Department;
 import com.softgv.cda.service.DepartmentService;
-@CrossOrigin(origins = "http://localhost:3000", originPatterns = "*")
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/departments")
 public class DepartmentController {

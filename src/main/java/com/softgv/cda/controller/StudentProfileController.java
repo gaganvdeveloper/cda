@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.softgv.cda.service.StudentProfileService;
 
-@CrossOrigin(origins = "*", originPatterns = "*")
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/studentprofiles")
 public class StudentProfileController {

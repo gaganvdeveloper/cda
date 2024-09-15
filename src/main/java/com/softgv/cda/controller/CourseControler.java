@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.softgv.cda.entity.Course;
 import com.softgv.cda.service.CourseService;
 
-@CrossOrigin(origins = "http://localhost:3000", originPatterns = "*")
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/courses")
 public class CourseControler {

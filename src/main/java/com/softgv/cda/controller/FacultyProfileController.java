@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.softgv.cda.service.FacultyProfileService;
 
-@CrossOrigin(origins = "http://localhost:3000", originPatterns = "*", allowedHeaders = "*")
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/facultyprofiles")
 public class FacultyProfileController {
@@ -28,22 +28,23 @@ public class FacultyProfileController {
 	public ResponseEntity<?> saveFacultyProfile(@RequestParam int uid, @RequestParam MultipartFile file) {
 		return facultyProfileService.saveFacultyProfile(uid, file);
 	}
-	
+
 	@PatchMapping("/update")
-	public ResponseEntity<?> updateInfo(@RequestParam int id,@RequestParam String email, @RequestParam String phone, @RequestParam LocalTime officeHours){
-		return facultyProfileService.updateInfo(id,email,phone,officeHours);
+	public ResponseEntity<?> updateInfo(@RequestParam int id, @RequestParam String email, @RequestParam String phone,
+			@RequestParam LocalTime officeHours) {
+		return facultyProfileService.updateInfo(id, email, phone, officeHours);
 	}
-	
-	@PatchMapping(value =  "/{uid}/{did}")
-	public ResponseEntity<?> assignDepartmentToFacultyProfile(@PathVariable(name = "uid") int uid, @PathVariable(name = "did") int did){
-		return facultyProfileService.assignDepartmentToFacultyProfile(uid,did);
+
+	@PatchMapping(value = "/{uid}/{did}")
+	public ResponseEntity<?> assignDepartmentToFacultyProfile(@PathVariable(name = "uid") int uid,
+			@PathVariable(name = "did") int did) {
+		return facultyProfileService.assignDepartmentToFacultyProfile(uid, did);
 	}
-	
+
 	@PatchMapping
-	public ResponseEntity<?> updatePhoto(@RequestParam int id ,@RequestParam MultipartFile file){
-		return facultyProfileService.updatePhoto(id,file);
+	public ResponseEntity<?> updatePhoto(@RequestParam int id, @RequestParam MultipartFile file) {
+		return facultyProfileService.updatePhoto(id, file);
 	}
-	
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findFacultyProfileById(@PathVariable int id) {
@@ -54,8 +55,5 @@ public class FacultyProfileController {
 	public ResponseEntity<?> findAllFacultyProfile() {
 		return facultyProfileService.findAllFacultyProfile();
 	}
-	
-	
-	
 
 }
