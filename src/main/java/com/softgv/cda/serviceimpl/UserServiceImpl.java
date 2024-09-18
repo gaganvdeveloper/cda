@@ -6,6 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.softgv.cda.dao.AdministratorProfileDao;
@@ -20,11 +23,18 @@ import com.softgv.cda.exceptionclasses.UserNotFoundException;
 import com.softgv.cda.responsestructure.ResponseStructure;
 import com.softgv.cda.service.UserService;
 import com.softgv.cda.util.AuthUser;
+import com.softgv.cda.util.Helper;
 import com.softgv.cda.util.Role;
 import com.softgv.cda.util.UserStatus;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+
 @Service
 public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private Helper helper;
 
 	@Autowired
 	private UserDao userDao;
@@ -49,9 +59,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ResponseEntity<?> saveUser(User user) {
-//		validation not yet done...
-		user.setStatus(UserStatus.IN_ACTIVE);
+		int otp = helper.generateOTP();
+		boolean flag = helper.sendFirstMail(user.getEmail(), otp);
+		if (!flag)
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(ResponseStructure.builder().status(HttpStatus.BAD_REQUEST.value())
+							.message("Enter Valid Email").body("Invaid Email Id : " + user.getEmail()).build());
 		String photo = "C:\\Users\\gagan\\Documents\\My-React\\cda-react-app\\public\\images\\userprofile.jpg";
+		user.setStatus(UserStatus.IN_ACTIVE);
+		user.setOtp(otp);
 		user = userDao.saveUser(user);
 		if (user.getRole() == Role.ADMINISTRATOR)
 			administratorProfileDao.saveAdministratorProfile(
